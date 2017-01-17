@@ -279,6 +279,19 @@ function deductible_reduction()
     console.log(rentals[i].price);
   }
 }
+
+//Exercice 5 - Pay the actors
+
+function pay_Actors()
+{
+  for(var i=0;i<actors.length;i++)
+  {
+    actors[i].payment[0].amout=rentals[i].price;
+    actors[i].payment[1].amout=rentals[i].price-rentals[i].commission;
+    actors[i].payment[2].amout=rentals[i].commission.insurance;
+    actors[i].payment[3];amout=rentals[i].commission.drivy;
+  }
+}
 console.log(cars);
 console.log(rentals);
 console.log(actors);
