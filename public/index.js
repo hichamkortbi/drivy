@@ -242,6 +242,25 @@ function rental_prices2()
       console.log(rentals[i].price);
   }
 }
+
+//Exercice 3 - Give me all your money
+function commission()
+{
+  var commission;
+  for(var i=0; i<rentals.length;i++)
+  {
+        rDate=new Date(rentals[i].returnDate).getTime();
+        pDate=new Date(rentals[i].pickupDate).getTime();
+        time=(rDate-pDate);
+        time = (((time/1000)/3600)/24)+1;
+        commission=0.3*rentals[i].price;
+        rentals[i].commission=commission;
+        rentals[i].commission.insurance=0.5*commission;
+        rentals[i].commission.assistance=1*time;
+        rentals[i].commission.drivy=commission-rentals[i].insurance-rentals[i].assistance;
+        console.log(rentals[i].commission);
+  }
+}
 console.log(cars);
 console.log(rentals);
 console.log(actors);
