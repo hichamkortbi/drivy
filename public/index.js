@@ -165,6 +165,40 @@ var rentalModifications = [{
   'pickupDate': '2015-12-05'
 }];
 
+
+//Exercice 1 - Euro Kilometers, rental prices
+//rental price = time + distance
+//time component: the number of rental days multiplied by the car's price per day
+//distance component: the number of kilometers multiplied by the car's price per km
+function rental_prices()
+{
+  var rDate;
+  var pDate;
+  var time;
+  var distance=[];
+  var carPricePerDay;
+  var carPricePerKm;
+  for(var i=0; i<rentals.length;i++)
+  {
+    distance[i]=rentals[i].distance;
+    rDate=new Date(rentals[i].returnDate).getTime();
+    pDate=new Date(rentals[i].pickupDate).getTime();
+    time=(rDate-pDate);
+    time = (((time/1000)/3600)/24)+1;
+    for(var j=0;j<cars.length;j++)
+    {
+      if(rentals[i].carId==cars[j].id)
+      {
+        carPricePerDay=cars[j].pricePerDay;
+        carPricePerKm=cars[j].pricePerKm;
+        rentals[i].price= time*carPricePerDay + distance[i]*carPricePerKm;
+        console.log(rentals[i].price)
+      }
+    }
+  }
+}
+
+
 console.log(cars);
 console.log(rentals);
 console.log(actors);
