@@ -261,6 +261,24 @@ function commission()
         console.log(rentals[i].commission);
   }
 }
+
+//Exercice 4 - The famous deductible
+
+function deductible_reduction()
+{
+  for(var i=0;i<rentals.length;i++)
+  {
+        rDate=new Date(rentals[i].returnDate).getTime();
+        pDate=new Date(rentals[i].pickupDate).getTime();
+        time=(rDate-pDate);
+        time = (((time/1000)/3600)/24)+1;
+    if(rentals[i].options.deductibleReduction==true)
+    {
+      rentals[i].price=rentals[i].price+(time*4)
+    }
+    console.log(rentals[i].price);
+  }
+}
 console.log(cars);
 console.log(rentals);
 console.log(actors);
