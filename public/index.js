@@ -286,13 +286,79 @@ function pay_Actors()
 {
   for(var i=0;i<actors.length;i++)
   {
-    actors[i].payment[0].amout=rentals[i].price;
-    actors[i].payment[1].amout=rentals[i].price-rentals[i].commission;
-    actors[i].payment[2].amout=rentals[i].commission.insurance;
-    actors[i].payment[3];amout=rentals[i].commission.drivy;
+    actors[i].payment[0].amount=rentals[i].price;
+    actors[i].payment[1].amount=rentals[i].price-rentals[i].commission;
+    actors[i].payment[2].amount=rentals[i].commission.insurance;
+    actors[i].payment[3].amount=rentals[i].commission.assistance;
+    actors[i].payment[4];amount=rentals[i].commission.drivy;
   }
 }
 console.log(cars);
 console.log(rentals);
 console.log(actors);
 console.log(rentalModifications);
+}
+
+
+//Exercice 6 - Rental modifcation
+//list of rental modifcation
+//useful for exercise 6
+var rentalModifications = [{
+  'rentalId': '1-pb-92',
+  'returnDate': '2016-01-04',
+  'distance': 150
+}, {
+  'rentalId': '3-sa-92',
+  'pickupDate': '2015-12-05'
+}];
+
+function rental_Modification(var newReturnDate,var new pickupDate,var newDistance,var rentalId)
+{
+  var rDate;
+  var pDate;
+  var time;
+  var carPricePerDay;
+  var carPricePerKm;
+  var oldValues=[];
+  var newValues=[];
+  var deltaAmount=[];
+    for(var i=0; i<rentals.length;i++)
+  {   
+      if(rentals[i].carId==rentalId)
+      {
+        rentals[i].distance=newDistance;
+        rDate=new Date(newReturnDate).getTime();
+        pDate=new Date(newPickupDate).getTime();
+        time=(rDate-pDate);
+        time = (((time/1000)/3600)/24)+1;
+        for(var j=0;j<cars.length;j++)
+        {
+          if(rentalId==cars[j].id)
+          {
+            oldValues[0]=car[j].price;
+            oldValues[1]=car[j].commission;
+            oldValues[2]=car[j].commission.insurance;
+            oldValues[3]=car[j].commission.assistance;
+            oldValues[4]=car[j].commission.drivy;
+            carPricePerDay=cars[j].pricePerDay;
+            carPricePerKm=cars[j].pricePerKm;
+            rentals[i].price= time*carPricePerDay + newDistance*carPricePerKm;
+            commission();
+            newValues[0]=car[j].price;
+            newValues[1]=car[j].commission;
+            newValues[2]=car[j].commission.insurance;
+            newValues[3]=car[j].commission.assistance;
+            newValues[4]=car[j].commission.drivy;
+            deltaAmount=newValues-oldValues;
+          }
+        }
+    }
+      for(var i=0;i<actors.length;i++)
+    {
+    actors[i].payment[0].amount=deltaAmount[0];
+    actors[i].payment[1].amount=deltaAmount[0]-deltaAmount[1];
+    actors[i].payment[2].amount=deltaAmount[2];
+    actors[i].payment[3].amount=deltaAmount[3];
+    actors[i].payment[4];amount=deltaAmount[4];
+    }
+}
